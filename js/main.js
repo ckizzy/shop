@@ -1,22 +1,44 @@
+let template = document.querySelector('[type="template"]').innerHTML;
+let mainRow = document.querySelector("#insertTemplate");
+let dataBase;
+
 $.ajax({
   url: "https://raw.githubusercontent.com/Danilovesovic/shop/master/shop.json",
   dataType: "json"
 }).done(function(res) {
-  let dataBase = res;
-  //create html
-  let template = document.querySelector('[type="template"]').innerHTML;
-  let mainRow = document.querySelector("#insertTemplate");
-  console.log(template);
-
-  let text = "";
-  for (let i = 0; i < dataBase.length; i++) {
-    text += template
-      .replace(/{{imgSrc}}/gi, dataBase[i].imgSrc)
-      .replace(/{{productTitle}}/gi, dataBase[i].productTitle)
-      .replace(/{{model}}/gi, dataBase[i].model)
-      .replace(/{{price}}/gi, dataBase[i].price);
+  dataBase = res;
+  let aLinks = document.querySelectorAll("a");
+  render(dataBase);
+  //renderCategory
+  for (let i = 0; i < aLinks.length; i++) {
+    aLinks[i].addEventListener("click", selectCategory);
   }
-  mainRow.innerHTML = text;
+  function selectCategory() {
+    event.preventDefault();
+    //add and remove class ACTIVE
+    for (let i = 0; i < aLinks.length; i++) {
+      aLinks[i].classList.remove("active");
+    }
+    this.classList.add("active");
+    let colection;
+    let col = this.getAttribute("data-col");
+    if (col == "male" || col == "female") {
+      colection = dataBase.filter(function(e) {
+        return e.colection == col;
+      });
+      render(colection);
+    } else {
+      colection = dataBase.filter(function(e) {
+        return e[col];
+      });
+      render(colection);
+    }
+  }
+  //view detailed html
+  let viewIcon = document.querySelectorAll('[alt="View icon"]');
+  for (let i = 0; i < viewIcon.length; i++) {
+    viewIcon[i].addEventListener("click", showDetailedPage);
+  }
 });
 
 //bojanov front
