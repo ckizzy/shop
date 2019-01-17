@@ -9,10 +9,18 @@ function render(base) {
   }
   mainRow.innerHTML = text;
   //view detailed html
-  let viewIcon = document.querySelectorAll('[alt="View icon"]');
 
-  for (let i = 0; i < viewIcon.length; i++) {
-    viewIcon[i].addEventListener("click", showDetailedPage);
+  for (
+    let i = 0;
+    i < document.querySelectorAll('[alt="View icon"]').length;
+    i++
+  ) {
+    document
+      .querySelectorAll('[alt="View icon"]')
+      [i].addEventListener("click", showDetailedPage);
+    document
+      .querySelectorAll('[alt="Shop icon"]')
+      [i].addEventListener("click", addToCartInstant);
   }
 }
 
@@ -23,4 +31,34 @@ function showDetailedPage() {
     "src"
   );
   localStorage.setItem("imgSrc", imgSrc);
+}
+
+function addToCartInstant() {
+  event.preventDefault();
+  let badge = document.querySelector(".badge");
+  let cartArr = [];
+
+  let imgSrc = this.parentElement.parentElement.parentElement.parentElement.children[0].getAttribute(
+    "src"
+  );
+  if (!localStorage.getItem("cartArr")) {
+    cartArr.push(imgSrc);
+    localStorage.setItem("cartArr", JSON.stringify(cartArr));
+    badge.innerHTML = cartArr.length;
+  } else {
+    cartArr = JSON.parse(localStorage.getItem("cartArr"));
+    cartArr.push(imgSrc);
+    localStorage.setItem("cartArr", JSON.stringify(cartArr));
+    badge.innerHTML = cartArr.length;
+  }
+}
+
+function setQuantity() {
+  if (!localStorage.getItem("cartArr")) {
+    document.querySelector(".badge").innerHTML = 0;
+  } else {
+    document.querySelector(".badge").innerHTML = JSON.parse(
+      localStorage.getItem("cartArr")
+    ).length;
+  }
 }

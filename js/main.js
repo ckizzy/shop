@@ -1,18 +1,21 @@
 let template = document.querySelector('[type="template"]').innerHTML;
 let mainRow = document.querySelector("#insertTemplate");
 let dataBase;
-
+let aCart = document.querySelector(".cart");
+setQuantity();
 $.ajax({
   url: "https://raw.githubusercontent.com/Danilovesovic/shop/master/shop.json",
   dataType: "json"
 }).done(function(res) {
   dataBase = res;
   let aLinks = document.querySelectorAll("a");
+
   render(dataBase);
   //renderCategory
   for (let i = 0; i < aLinks.length; i++) {
     aLinks[i].addEventListener("click", selectCategory);
   }
+
   function selectCategory() {
     event.preventDefault();
     //add and remove class ACTIVE
