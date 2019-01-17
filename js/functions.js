@@ -8,10 +8,17 @@ function render(base) {
       .replace(/{{price}}/gi, base[i].price);
   }
   mainRow.innerHTML = text;
+  //view detailed html
+  let viewIcon = document.querySelectorAll('[alt="View icon"]');
+
+  for (let i = 0; i < viewIcon.length; i++) {
+    viewIcon[i].addEventListener("click", showDetailedPage);
+  }
 }
 
 function showDetailedPage() {
   this.parentElement.setAttribute("href", "detailed.html");
+  console.log(this.parentElement);
   let imgSrc = this.parentElement.parentElement.parentElement.parentElement.children[0].getAttribute(
     "src"
   );

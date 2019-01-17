@@ -34,11 +34,6 @@ $.ajax({
       render(colection);
     }
   }
-  //view detailed html
-  let viewIcon = document.querySelectorAll('[alt="View icon"]');
-  for (let i = 0; i < viewIcon.length; i++) {
-    viewIcon[i].addEventListener("click", showDetailedPage);
-  }
 });
 
 //bojanov front
