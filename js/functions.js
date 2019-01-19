@@ -62,3 +62,7 @@ function setQuantity() {
     ).length;
   }
 }
+
+function showCart() {
+  this.setAttribute("href", "cart.html");
+}

@@ -1,9 +1,10 @@
 let template1 = document.querySelector('[type = "template1"]').innerHTML;
 let template2 = document.querySelector('[type = "template2"]').innerHTML;
 setQuantity();
-console.log(template2);
+
 let main = document.querySelector("main");
 let dataBase;
+
 $.ajax({
   url: "https://raw.githubusercontent.com/Danilovesovic/shop/master/shop.json",
   dataType: "json"
@@ -72,6 +73,7 @@ $.ajax({
   function backToMain() {
     back.setAttribute("href", "index.html");
   }
+  document.querySelector(".cart").addEventListener("click", showCart);
 });
 
 function addToCart() {
