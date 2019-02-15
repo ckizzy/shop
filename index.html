@@ -58,10 +58,19 @@
               </ul>
             </nav>
           </div>
+          <div class="container-fluid">
+            <div id="box"><div class="box-products"></div></div>
+          </div>
           <!-- Search and cart -->
           <div class="search-cart-holder">
             <div class="search">
-              <input type="text" name="Search" class="form-control" />
+              <input
+                onkeyup="myFunction()"
+                id="search"
+                type="text"
+                name="Search"
+                class="form-control"
+              />
               <button class="btn"></button>
             </div>
             <a href="#" class="cart">
@@ -210,6 +219,44 @@
                   </article>
                 </div>
               </script>
+            </div>
+            </div>
+            <div class="row" id="insertTemplate1">
+              <script type="template1">
+                          <div data-img="{{i}}" class="col-xs-6 col-md-4 col-lg-3 article-clear">
+                            <article class="product clearfix">
+                              <!-- Image Holder -->
+                              <div class="product-img-holder">
+                                <a id='aLink' href="#">
+                                  <img src="img/products/{{imgSrc}}.jpg" alt="1" class="img-responsive">
+                                </a>
+                                <ul class="hover-list list-reset">
+                                  <li><a href="#"><img src="img/shop-icon.png" alt="Shop icon"></a></li>
+                                  <li><a href="#"><img src="img/view-icon.png" alt="View icon"></a></li>
+                                  <li><a href="#"><img src="img/like-icon.png" alt="Like icon"></a></li>
+                                </ul>
+                              </div>
+                              <!-- Image Holder END -->
+                              <!-- Product Title -->
+                              <div class="product-title clearfix">
+                                <h3>{{productTitle}}<span><br>{{model}}</span></h3>
+                                <span>{{price}} rsd</span>
+                              </div>
+                              <!-- Product Title END -->
+                              <!-- Color Picker -->
+                              <ul class="color-picker list-reset">
+                                <li><a href="#" class="purple">Purple</a></li>
+                                <li><a href="#" class="green">Green</a></li>
+                                <li><a href="#" class="dark-gray">Dark grey</a></li>
+                              </ul>
+                              <!-- Color Picker END -->
+                            </article>
+                          </div>
+                        </script>
+            
+            
+            
+            
             </div>
           </div>
           <!-- Products Holder END -->

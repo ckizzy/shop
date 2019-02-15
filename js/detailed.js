@@ -1,9 +1,12 @@
 let template1 = document.querySelector('[type = "template1"]').innerHTML;
 let template2 = document.querySelector('[type = "template2"]').innerHTML;
+let template3 = document.querySelector('[type = "template3"]').innerHTML;
 setQuantity();
 
 let main = document.querySelector("main");
 let dataBase;
+
+let izbProizvod = [];
 
 $.ajax({
   url: "https://raw.githubusercontent.com/Danilovesovic/shop/master/shop.json",
@@ -108,4 +111,58 @@ function addToCart() {
     }
   }
   setQuantity();
+}
+function myFunction() {
+  let box = document.querySelector("#box");
+  box.innerHTML = "<div></div>";
+  let search = document.querySelector("#search").value;
+  console.log(box);
+  box.style.display = "flex";
+  box.style.flexWrap = "wrap";
+
+  if (search.length > 1) {
+    for (var i = 0; i < dataBase.length; i++) {
+      let title = dataBase[i].productTitle;
+      let proizvod = dataBase[i].imgSrc;
+
+      console.log(izbProizvod);
+      let tit = title.toUpperCase().indexOf(search.toUpperCase());
+
+      console.log(tit);
+      if (tit >= 0) {
+        izbProizvod.push(i);
+        box.innerHTML += template3
+          .replace(/{{i}}/gi, i)
+          .replace(/{{imgSrc}}/gi, dataBase[i].imgSrc)
+          .replace(/{{productTitle}}/gi, dataBase[i].productTitle)
+          .replace(/{{model}}/gi, dataBase[i].model)
+          .replace(/{{price}}/gi, dataBase[i].price);
+      }
+    }
+
+    let a = document.querySelectorAll("#aLink");
+
+    for (var i = 0; i < a.length; i++) {
+      a[i].addEventListener("click", fuck);
+    }
+    function fuck() {
+      console.log(this);
+      let imgSrc = this.firstElementChild.getAttribute("src");
+      console.log(imgSrc);
+      this.href = "http://localhost/shop/detailed.html";
+      localStorage.setItem("imgSrc", imgSrc);
+
+      // this.href = "http://localhost/shop/detailed.html";
+      // localStorage.setItem("save", imgValue);
+    }
+
+    $("#insertTemplate3").html(box.innerHTML);
+    // let row = document.querySelector("#insertTemplate3");
+    // row.style.display = "none";
+    let btn = document.querySelector(".btn");
+    btn.addEventListener("click", closeSearch);
+    function closeSearch(params) {
+      box.style.display = "none";
+    }
+  }
 }
